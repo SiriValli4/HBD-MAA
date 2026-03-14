@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happiest Birthday Maa!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <style>
+        /* CSS Reset for a clean start */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        body {
+            /* Pink gradient background */
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* Hide scrolling to keep everything on one screen */
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 2rem;
+            max-width: 800px;
+            /* Frosted glass effect */
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.5);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #FF1493;
+            text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            /* Initial opacity for animation */
+            opacity: 0;
+            animation: bounce-in 1.5s forwards 0.5s;
+        }
+
+        .typewriter-container {
+            display: inline-block;
+            margin: 0 auto 2rem auto;
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+            height: 2.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: #8A2BE2;
+            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.6);
+            /* Initial width and animation for typewriter effect */
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typewriter 3s steps(50) forwards 1.5s;
+        }
+
+        .next-button {
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            /* Fading background gradient on button */
+            background: linear-gradient(45deg, #FF1493, #8A2BE2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.5);
+            transition: all 0.3s ease;
+            /* Button fades in after other animations */
+            opacity: 0;
+            animation: fade-in 1s forwards 4.5s;
+        }
+
+        .next-button:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.7);
+            background: linear-gradient(45deg, #8A2BE2, #FF1493);
+        }
+
+        /* Elements that float around */
+        .confetti, .balloon, .heart, .star {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.8;
+            pointer-events: none;
+            /* The animation is handled by GSAP, not pure CSS */
+        }
+
+        /* Define all keyframes for animations */
+        @keyframes bounce-in {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            80% { transform: scale(0.9); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes fade-in {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typewriter Cursor effect */
+        .cursor {
+            position: absolute;
+            right: -5px;
+            width: 3px;
+            height: 100%;
+            background-color: #8A2BE2;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Making the page look better on smaller screens/phones */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.3rem; }
+            .container { width: 90%; padding: 1.5rem; }
+            .next-button { padding: 0.8rem 2rem; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            Happiest Birthday to my <br/>supercalifragilisticexpialidocious <br/>Maa❤️! <br/>🎉🎂
+        </h1>
+        <div class="typewriter-container">
+            <div class="subtitle">
+                Hey MAA! Ready for your special surprise? Click 
+                <span class="cursor"></span>
+            </div>
+        </div>
+        <a href="memorylane.html" class="next-button" id="lets-go-button">Let's Go! ✨</a>
+    </div>
+
+    <script>
+        // ----------------------------------------------------
+        // Part 1: Button Animation
+        // ----------------------------------------------------
+        // Add a bounce effect when the button is clicked, right before navigating
+        document.getElementById('lets-go-button').addEventListener('click', function(event) {
+            event.preventDefault(); // Stop immediate navigation
+
+            gsap.to(this, {
+                scale: 1.2,
+                yoyo: true,
+                repeat: 1,
+                duration: 0.2,
+                onComplete: () => {
+                    // This MUST match your filename in VS Code sidebar exactly
+                    window.location.href = "memorylane.html";
+                }
+            });
+        });
+
+        // ----------------------------------------------------
+        // Part 2: Floating Elements
+        // ----------------------------------------------------
+        // This function creates the endless confetti/balloons effect
+        function createFloatingElements() {
+            const colors = ['#FF1493', '#8A2BE2', '#FFD700', '#FF4500', '#00BFFF', '#32CD32'];
+            const elements = ['confetti', 'balloon', 'heart', 'star'];
+            const confettiShapes = ['▲', '■', '●', '★', '♥', '♦', '✦', '✧'];
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const element = document.createElement('div');
+                    
+                    // Randomly pick an element type
+                    const elementType = elements[Math.floor(Math.random() * elements.length)];
+                    element.className = elementType;
+                    
+                    // Set random horizontal position
+                    element.style.left = Math.random() * 100 + 'vw';
+                    element.style.top = -30 + 'px';
+                    
+                    // Set random color
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Different text/emoji and style based on element type
+                    if (elementType === 'confetti') {
+                        element.innerHTML = confettiShapes[Math.floor(Math.random() * confettiShapes.length)];
+                        element.style.color = color;
+                        element.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                        element.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    } else if (elementType === 'balloon') {
+                        element.innerHTML = '🎈';
+                        element.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                        element.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+                    } else if (elementType === 'heart') {
+                        element.innerHTML = '❤️';
+                        element.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    } else if (elementType === 'star') {
+                        element.innerHTML = '✨';
+                        element.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                    }
+                    
+                    // Add the new element to the page
+                    document.body.appendChild(element);
+                    
+                    // Animate the element with GSAP
+                    gsap.to(element, {
+                        y: window.innerHeight + 100, // Move down past bottom of screen
+                        x: '+=' + (Math.random() * 200 - 100), // Random side-to-side sway
+                        rotation: Math.random() * 360, // Spin
+                        duration: Math.random() * 10 + 5, // Random speed
+                        ease: "power1.out",
+                        onComplete: () => {
+                            // Delete the element once it goes off-screen to save memory
+                            document.body.removeChild(element);
+                        }
+                    });
+                    
+                }, i * 200); // Staggered start times
+            }
+        }
+
+        // ----------------------------------------------------
+        // Part 3: Initialization
+        // ----------------------------------------------------
+        // Add subtle sparkle glow to the heading (continual animation)
+        gsap.to('h1', {
+            textShadow: "0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 20, 147, 0.6)",
+            repeat: -1,
+            yoyo: true,
+            duration: 2
+        });
+
+        // Run the floating elements function on load and every few seconds
+        window.addEventListener('load', createFloatingElements);
+        setInterval(createFloatingElements, 5000);
+
+    </script>
+</body>
+</html>

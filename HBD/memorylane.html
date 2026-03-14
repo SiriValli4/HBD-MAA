@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Lane - Birthday Memories</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #ffcee6 0%, #ffd6f1 50%, #e4f9ff 100%);
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      .scrapbook-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ff9eda' fill-opacity='0.2'/%3E%3C/svg%3E");
+        z-index: -1;
+      }
+
+      .memory-lane-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .header h1 {
+        font-family: "Pacifico", cursive;
+        font-size: 3.5rem;
+        color: #ff4e91;
+        text-align: center;
+        margin-bottom: 2rem;
+        animation: heartbeat 2s infinite;
+      }
+
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2.5rem;
+        padding: 2rem 0;
+      }
+
+      .memory-card {
+        width: 300px;
+        height: 450px;
+        background: white;
+        padding: 15px 15px 60px 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        position: relative;
+        transition: transform 0.3s ease;
+        border: 1px solid #eee;
+      }
+
+      .memory-card:nth-child(even) { transform: rotate(2deg); }
+      .memory-card:nth-child(odd) { transform: rotate(-2deg); }
+
+      .memory-card:hover {
+        transform: scale(1.05) rotate(0deg);
+        z-index: 10;
+        box-shadow: 0 15px 40px rgba(255, 78, 145, 0.3);
+      }
+
+      .memory-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: #f9f9f9;
+        display: block;
+      }
+
+      .memory-caption {
+        position: absolute;
+        bottom: 10px;
+        left: 15px;
+        right: 15px;
+        font-size: 0.9rem;
+        color: #555;
+        text-align: center;
+        line-height: 1.4;
+        font-style: italic;
+        font-weight: bold;
+        font-weight: 600;
+      }
+
+      .card-tape {
+        position: absolute;
+        width: 100px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.6);
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      }
+
+      @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+
+      @media (max-width: 600px) {
+        .memory-card { width: 100%; max-width: 300px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scrapbook-bg"></div>
+    
+    <div class="memory-lane-container">
+      <div class="header">
+        <h1>Mom's Memory Lane</h1>
+      </div>
+
+      <div class="gallery">
+
+        <div class="memory-card">
+          <div class="card-tape"></div>
+          <img src="IMG-20260312-WA0019.jpg" alt="Memory 1" class="memory-img" />
+          <div class="memory-caption">
+            "Verified by AI: 100% Grace, 100% Elegance, and 100% Heart. They say AI doesn't have a heart, but when it saw my Mom, even the algorithms skipped a beat."
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="card-tape"></div>
+          <img src="IMG-20260312-WA0018.jpg" alt="Memory 2" class="memory-img" />
+          <div class="memory-caption">
+            "To the woman who taught me how to go with the flow. Cheers to you! 🌊 #BirthdayWaves"
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="card-tape"></div>
+          <img src="IMG-20260312-WA0020.jpg" alt="Memory 3" class="memory-img" />
+          <div class="memory-caption">
+            "Successfully kidnapped from the playground for this aesthetic: A mandatory corporate meeting with Mom."
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="card-tape"></div>
+          <img src="IMG-20260312-WA0035.jpg" alt="Memory 4" class="memory-img" />
+          <div class="memory-caption">
+            "They say a mother 'wears many hats,' and these photos prove you wear them all with style! A woman with a 'heart of gold' and a soul that is 'one in a million'."
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="card-tape"></div>
+          <img src="20260314_123245-COLLAGE.jpg" alt="Memory 5" class="memory-img" />
+          <div class="memory-caption">
+            "A trip down memory lane, where every single stop features you as the star. The days when our biggest worry was who got to sit next to you."
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="card-tape"></div>
+          <img src="IMG-20260312-WA0022.jpg" alt="Memory 6" class="memory-img" />
+          <div class="memory-caption">
+            "Proof that you don’t need a crown to be royalty. You stepped into the room in that green saree and suddenly everyone else became background characters. 🎬✨"
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 60px; padding-bottom: 80px; font-family: sans-serif;">
+    <hr style="width: 50%; border: 0; border-top: 1px solid #eee; margin-bottom: 40px;">
+    
+    <h2 style="color: #333;">You've reached the end of the trip!</h2>
+    <p style="color: #666;">I have one final surprise for you... click the button below:</p>
+    
+    <br>
+
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeh-nS04U3InqYGQOmwOw3W85QvAdfYRH3AIPvWxZVEhu6V3A/viewform?usp=dialog" 
+       target="_blank" 
+       style="background-color: #4285F4; 
+              color: white; 
+              padding: 18px 35px; 
+              text-decoration: none; 
+              font-size: 18px; 
+              border-radius: 30px; 
+              font-weight: bold; 
+              display: inline-block;
+              box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+       Final Step: Answer the Questions! ✍️
+    </a>
+</div>
+  </body>
+</html>
